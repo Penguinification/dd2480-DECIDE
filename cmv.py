@@ -1,4 +1,4 @@
-from math import sqrt, acos, pi
+from math import sqrt, acos, pi, dist
 
 def cmv(parameters, points):
     cmv = [False] * 15
@@ -59,8 +59,27 @@ def lic_2(parameters, points):
     return False
 
 def lic_3(parameters, points):
-    # TODO: Implement
-    pass
+    """
+    Checks whether or not there are three consecutive points that form a triangle with area greater than [area1].
+    Uses Heron's formula to calculate the area of the triangle created by three consecutive points. 
+    """
+    if len(points) < 3:
+        return False
+
+    area1 = parameters["area1"]
+
+    for i in range(len(points)-2):
+        p1 = points[i]
+        p2 = points[i+1]
+        p3 = points[i+2]
+        a = dist(p1, p2)
+        b = dist(p1, p3)
+        c = dist(p2, p3)
+        s = (a+b+c)/2
+        area = sqrt(s*(s-a)*(s-b)*(s-c))
+        if area > area1:
+            return True
+    return False
 
 def lic_4(parameters, points):
     # TODO: Implement
