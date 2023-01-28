@@ -58,3 +58,78 @@ def test_lic_0_false():
     points = [(0.0, 0.0), (1.0, 1.0), (1.0, 3.0)]
     result = lic_0(parameters, points)
     assert(not result)
+
+def test_lic_2_true():
+    """
+    Test that lic_2 returns true when angle < (PI-EPSILON) (or equivalently outer angle > (PI+EPSILON))
+    """
+    parameters = {
+        "epsilon": pi/2
+    }
+    points = [(0.0, 0.0), (1.0, 0.0), (0, 1.0)] # pi/4 angle
+    result = lic_2(parameters, points)
+    assert(result)
+
+
+def test_lic_2_false():
+    """
+    Test that lic_2 returns false when angle > (PI-EPSILON) (or equivalently outer angle < (PI+EPSILON))
+    """
+    parameters = {
+        "epsilon": pi
+    }
+    points = [(0.0, 0.0), (1.0, 0.0), (1.0, 1.0)] # pi/2 angle
+    result = lic_2(parameters, points)
+    assert(not result)
+
+def test_lic_2_coinciding_vertex_1():
+    """
+    Test that lic_2 returns false when the first point in one sequence
+    coincides with the vertex and no other sequence of consecutive points
+    satisfies angle < (PI-EPSILON)
+    """
+    parameters = {
+        "epsilon": pi
+    }
+    points = [(0.0, 0.0), (0.0, 0.0), (1.0, 0.0), (1.0, 1.0)]
+    result = lic_2(parameters, points)
+    assert(not result)
+
+def test_lic_2_coinciding_vertex_2():
+    """
+    Test that lic_2 returns true when the first point in one sequence
+    coincides with the vertex and another sequence of consecutive points
+    satisfies angle < (PI-EPSILON)
+    """
+    parameters = {
+        "epsilon": pi/2
+    }
+    points = [(0.0, 0.0), (0.0, 0.0), (1.0, 0.0), (0, 1.0)]
+    result = lic_2(parameters, points)
+    assert(result)
+
+def test_lic_2_coinciding_vertex_3():
+    """
+    Test that lic_2 returns false when the last point in one sequence
+    coincides with the vertex and no other sequence of consecutive points
+    satisfies angle < (PI-EPSILON)
+    """
+    parameters = {
+        "epsilon": pi
+    }
+    points = [(-1.0, 0.0), (0.0, 0.0), (0.0, 0.0), (1.0, 0.0), (1.0, 1.0)]
+    result = lic_2(parameters, points)
+    assert(not result)
+
+def test_lic_2_coinciding_vertex_4():
+    """
+    Test that lic_2 returns true when the last point in one sequence
+    coincides with the vertex and another sequence of consecutive points
+    satisfies angle < (PI-EPSILON)
+    """
+    parameters = {
+        "epsilon": pi/2
+    }
+    points = [(-1.0, 0.0), (0.0, 0.0), (0.0, 0.0), (1.0, 0.0), (0, 1.0)]
+    result = lic_2(parameters, points)
+    assert(result)

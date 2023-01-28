@@ -1,4 +1,4 @@
-from math import sqrt
+from math import sqrt, acos, pi
 
 def cmv(parameters, points):
     cmv = [False] * 15
@@ -33,8 +33,30 @@ def lic_1(parameters, points):
     pass
 
 def lic_2(parameters, points):
-    # TODO: Implement
-    pass
+    for i in range(0, len(points)-2):
+        a_x_distance = abs(points[i+1][0] - points[i+2][0])
+        a_y_distance = abs(points[i+1][1] - points[i+2][1])
+        a = abs(sqrt(a_x_distance**2 + a_y_distance**2))
+
+        b_x_distance = abs(points[i][0] - points[i+1][0])
+        b_y_distance = abs(points[i][1] - points[i+1][1])
+        b = abs(sqrt(b_x_distance**2 + b_y_distance**2))
+
+        c_x_distance = abs(points[i][0] - points[i+2][0])
+        c_y_distance = abs(points[i][1] - points[i+2][1])
+        c = abs(sqrt(c_x_distance**2 + c_y_distance**2))
+
+        # Not satisfied if either the first point or
+        # the last point (or both) coincides with the vertex
+        if a == 0 or b == 0:
+            continue
+        
+        # Use the law of cosines
+        angle = acos((a**2 + b**2 - c**2) / (2*a*b))
+
+        if angle < pi - parameters["epsilon"]:
+            return True
+    return False
 
 def lic_3(parameters, points):
     # TODO: Implement
