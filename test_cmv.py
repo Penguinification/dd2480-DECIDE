@@ -76,7 +76,7 @@ def test_lic_2_false():
     Test that lic_2 returns false when angle > (PI-EPSILON) (or equivalently outer angle < (PI+EPSILON))
     """
     parameters = {
-        "epsilon": pi
+        "epsilon": 3*pi/4
     }
     points = [(0.0, 0.0), (1.0, 0.0), (1.0, 1.0)] # pi/2 angle
     result = lic_2(parameters, points)
@@ -89,7 +89,7 @@ def test_lic_2_coinciding_vertex_1():
     satisfies angle < (PI-EPSILON)
     """
     parameters = {
-        "epsilon": pi
+        "epsilon": 3*pi/4
     }
     points = [(0.0, 0.0), (0.0, 0.0), (1.0, 0.0), (1.0, 1.0)]
     result = lic_2(parameters, points)
@@ -115,7 +115,7 @@ def test_lic_2_coinciding_vertex_3():
     satisfies angle < (PI-EPSILON)
     """
     parameters = {
-        "epsilon": pi
+        "epsilon": 3*pi/4
     }
     points = [(-1.0, 0.0), (0.0, 0.0), (0.0, 0.0), (1.0, 0.0), (1.0, 1.0)]
     result = lic_2(parameters, points)
