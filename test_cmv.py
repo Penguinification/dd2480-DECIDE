@@ -58,3 +58,48 @@ def test_lic_0_false():
     points = [(0.0, 0.0), (1.0, 1.0), (1.0, 3.0)]
     result = lic_0(parameters, points)
     assert(not result)
+
+def test_lic_3_true():
+    """
+    Tests that lic_3 returns true when there are three consecutive points that form a triangle
+    with area > [area1]
+    """
+    parameters = {
+        "area1": 0.5
+    }
+    points = [(0.0, 0.0), (2.0, 0.0), (2.0, 2.0)]
+    result = lic_3(parameters, points)
+    assert result
+
+def test_lic_3_false_area_too_small():
+    """
+    Tests that lic_3 returns false when the area of the triangle is smaller than [area1]
+    """
+    parameters = {
+        "area1": 2.0
+    }
+    points = [(0.0, 0.0), (1.0, 0.0), (0.0, 0.5)]
+    result = lic_3(parameters, points)
+    assert not result
+
+def test_lic_3_false_too_few_points():
+    """
+    Tests that lic_3 returns false when there are only two data points
+    """
+    parameters = {
+        "area1": 0.5
+    }
+    points = [(0.0, 0.0), (2.0, 0.0)]
+    result = lic_3(parameters, points)
+    assert not result
+
+def test_lic_3_false_not_a_triangle():
+    """
+    Tests that lic_3 returns false when the points don't form a triangle
+    """
+    parameters = {
+        "area1": 0.5
+    }
+    points = [(0.0, 0.0), (0.0, 0.0), (5.0, 5.0)]
+    result = lic_3(parameters, points)
+    assert not result
