@@ -178,3 +178,91 @@ def test_lic_3_false_not_a_triangle():
     points = [(0.0, 0.0), (0.0, 0.0), (5.0, 5.0)]
     result = lic_3(parameters, points)
     assert not result
+
+def test_lic_4_true():
+    """
+    Tests that lic_4 returns true when there is a set of [q_pts] consecutive points in the middle of the list
+    that lie in more than [quads] different quadrants
+    """
+    parameters = {
+        "quads": 1,
+        "q_pts": 2
+    }
+    points = [(1.0, 1.0), (1.0, 1.0), (-1.0, -1.0), (-1.0, -1.0)]
+    result = lic_4(parameters, points)
+    assert result
+
+def test_lic_4_true_entire_list_all_quads():
+    """
+    Tests that lic_4 returns true when there is a set of [q_pts] consecutive points that lie in 
+    more than [quads] different quadrants
+    """
+    parameters = {
+        "quads": 3,
+        "q_pts": 4
+    }
+    points = [(1.0, 1.0), (-1.0, 1.0), (-1.0, -1.0), (1.0, -1.0)]
+    result = lic_4(parameters, points)
+    assert result
+
+def test_lic_4_true_points_on_axes():
+    """
+    Tests that lic_4 returns true for edge cases where points lie on the x and y axes but belong to 
+    three different quadrants
+    """
+    parameters = {
+        "quads": 2,
+        "q_pts": 4
+    }
+    points = [(0.0, 0.0), (-1.0, 0.0), (0.0, -1.0), (0.0, 1.0)] # points belong to q1, q2, q3 and q1
+    result = lic_4(parameters, points)
+    assert result
+
+def test_lic_4_false_too_few_points():
+    """
+    Tests that lic_4 returns false when there are less than [q_pts] in the list
+    """
+    parameters = {
+        "quads": 3,
+        "q_pts": 4
+    }
+    points = [(1.0, 1.0), (-1.0, 1.0), (-1.0, -1.0)]
+    result = lic_4(parameters, points)
+    assert not result
+
+def test_lic_4_false_all_same_quadrant():
+    """
+    Tests that lic_4 returns false when all points lie in the same quadrant
+    """
+    parameters = {
+        "quads": 1,
+        "q_pts": 2
+    }
+    points = [(1.0, 1.0), (0.0, 0.0), (0.0, 1.0)]
+    result = lic_4(parameters, points)
+    assert not result
+
+def test_lic_4_false_edge_cases():
+    """
+    Tests that lic_4 returns false for edge cases where points lie on the x and y axes
+    """
+    parameters = {
+        "quads": 3,
+        "q_pts": 4
+    }
+    points = [(0.0, 0.0), (-1.0, 0.0), (0.0, -1.0), (0.0, 1.0)] # points belong to q1, q2, q3 and q1
+    result = lic_4(parameters, points)
+    assert not result
+
+def test_lic_4_false_not_consecutive():
+    """
+    Tests that lic_4 returns false when there are not enough consecutive points that lie
+    in the correct number of quadrants
+    """
+    parameters = {
+        "quads": 2,
+        "q_pts": 2
+    }
+    points = [(0.0, 0.0), (-1.0, -1.0), (0.0, 0.0), (-1.0, -1.0)]
+    result = lic_4(parameters, points)
+    assert not result

@@ -82,8 +82,48 @@ def lic_3(parameters, points):
     return False
 
 def lic_4(parameters, points):
-    # TODO: Implement
-    pass
+    """
+    Checks whether or not there exists a set of [q_pts] consecutive points that lie in more than [quads] quadrants.
+    """
+    q_pts = parameters["q_pts"]
+    quads = parameters["quads"]
+    
+    if len(points) < q_pts:
+        return False
+
+    for i in range(len(points)-q_pts+1):
+        consecutive_points = []
+        for j in range(q_pts):
+            consecutive_points.append(points[i+j])
+        
+        counts = [0,0,0,0] # q1, q2, q3, q4
+        for point in consecutive_points:
+            if point[0] > 0 and point[1] > 0:
+                counts[0] += 1
+            elif point[0] < 0 and point[1] > 0:
+                counts[1] += 1
+            elif point[0] < 0 and point[1] < 0:
+                counts[2] += 1
+            elif point[0] > 0 and point[1] < 0:
+                counts[3] += 1
+            else: # cases where a point is on either of the axes
+                if point[0] == 0: # point is on the y axis
+                    if point[1] >= 0:
+                        counts[0] += 1
+                    else:
+                        counts[2] += 1
+                else: # point is on the x axis
+                    if point[0] >= 0:
+                        counts[0] += 1
+                    else:
+                        counts[1] += 1
+        different_quads = 0
+        for i in counts:
+            if i > 0:
+                different_quads += 1
+        if different_quads > quads:
+            return True
+    return False
 
 def lic_5(parameters, points):
     # TODO: Implement
