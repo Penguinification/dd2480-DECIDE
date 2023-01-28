@@ -1,3 +1,5 @@
+from math import sqrt
+
 def cmv(parameters, points):
     cmv = [False] * 15
     cmv[0] = lic_0(parameters, points)
@@ -18,8 +20,13 @@ def cmv(parameters, points):
     return cmv
 
 def lic_0(parameters, points):
-    # TODO: Implement
-    pass
+    for i in range(0, len(points)-1):
+        x_distance = abs(points[i][0] - points[i+1][0])
+        y_distance = abs(points[i][1] - points[i+1][1])
+        distance = abs(sqrt(x_distance**2 + y_distance**2))
+        if distance > parameters["length1"]:
+            return True
+    return False
 
 def lic_1(parameters, points):
     # TODO: Implement

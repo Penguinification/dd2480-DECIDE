@@ -36,3 +36,25 @@ def test_cmv():
     lics = [lic_0, lic_1, lic_2, lic_3, lic_4, lic_5, lic_6, lic_7, lic_8, lic_9, lic_10, lic_11, lic_12, lic_13, lic_14]
     for i in range(15):
         assert cmv_res[i] == lics[i](parameters, points)
+
+def test_lic_0_true():
+    """""
+    Test that lic_0 returns true when two consecutive points have a distance larger than or equal to length1
+    """""
+    parameters = {
+        "length1": 0.5
+    }
+    points = [(0.0, 0.0), (0.0, 0.0), (1.0, 1.0)]
+    result = lic_0(parameters, points)
+    assert(result)
+
+def test_lic_0_false():
+    """""
+    Test that lic_0 returns false when no consecutive points have a distance larger than or equal to length1
+    """""
+    parameters = {
+        "length1": 5.0
+    }
+    points = [(0.0, 0.0), (1.0, 1.0), (1.0, 3.0)]
+    result = lic_0(parameters, points)
+    assert(not result)
