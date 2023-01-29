@@ -396,3 +396,53 @@ def test_lic_6_false_coinciding_point():
     points = [(0.0, 0.0), (-1.0, 1.0), (15.0, 15.0), (0.0, 0.0)]
     result = lic_6(parameters, points)
     assert not result
+
+def test_lic_7_true():
+    """
+    Tests that lic_7 returns true when there are two points separated by [k_pts] consecutive points
+    that lie at a distance greater than [length1] units apart
+    """
+    parameters = {
+        "length1": 1,
+        "k_pts": 1
+    }
+    points = [(0.0, 0.0), (-1.0, -1.0), (2.0, 0.0)]
+    result = lic_7(parameters, points)
+    assert result
+
+def test_lic_7_false():
+    """
+    Tests that lic_7 returns false when there are no two points separated by [k_pts] consecutive points
+    that lie at a distance greater than [length1] units apart
+    """
+    parameters = {
+        "length1": 1,
+        "k_pts": 2
+    }
+    points = [(0.0, 0.0), (-1.0, -1.0), (2.0, 0.0)]
+    result = lic_7(parameters, points)
+    assert not result
+
+def test_lic_7_false_distance_too_small():
+    """
+    Tests that lic_7 returns false when the points lie at a distance smaller than [length1]
+    """
+    parameters = {
+        "length1": 10,
+        "k_pts": 1
+    }
+    points = [(0.0, 0.0), (-1.0, -1.0), (2.0, 0.0)]
+    result = lic_7(parameters, points)
+    assert not result
+
+def test_lic_7_too_few_points():
+    """
+    Tests that lic_7 returns false when there are less than 3 points
+    """
+    parameters = {
+        "length1": 1,
+        "k_pts": 1
+    }
+    points = [(0.0, 0.0), (-1.0, -1.0)]
+    result = lic_7(parameters, points)
+    assert not result
