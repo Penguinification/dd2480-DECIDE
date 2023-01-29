@@ -156,8 +156,13 @@ def lic_4(parameters, points):
     return False
 
 def lic_5(parameters, points):
-    # TODO: Implement
-    pass
+    """
+    Checks whether there exists two consecutive points (x1, y1) (x2, y2) such that x2 - x1 < 0
+    """
+    for i in range(0, len(points)-1):
+        if points[i+1][0] - points[i][0] < 0:
+            return True
+    return False
 
 def lic_6(parameters, points):
     """
