@@ -164,8 +164,17 @@ def lic_6(parameters, points):
     pass
 
 def lic_7(parameters, points):
-    # TODO: Implement
-    pass
+    """
+    Checks whether or not there exists two points separated by [k_pts] consecutive points
+    that are more than [length1] units apart
+    """
+    k_pts = parameters["k_pts"]
+    length1 = parameters["length1"]
+
+    for i in range(len(points)-k_pts-1):
+        if dist(points[i], points[i+k_pts+1]) > length1:
+            return True
+    return False
 
 def lic_8(parameters, points):
     # TODO: Implement
