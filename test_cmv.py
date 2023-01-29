@@ -314,3 +314,21 @@ def test_lic_4_false_not_consecutive():
     points = [(0.0, 0.0), (-1.0, -1.0), (0.0, 0.0), (-1.0, -1.0)]
     result = lic_4(parameters, points)
     assert not result
+
+def test_lic_5_true():
+    """
+    Tests that lic_5 returns true when two consecutive points (x1, y1) (x2, y2) exist such that x2 - x1 < 0
+    """
+    parameters = {}
+    points = [(1.0, 0.0), (0.0, 0.0)]
+    result = lic_5(parameters, points)
+    assert(result)
+
+def test_lic_6_true():
+    """
+    Tests that lic_5 returns false when no consecutive points (x1, y1) (x2, y2) exist such that x2 - x1 < 0
+    """
+    parameters = {}
+    points = [(0.0, 0.0), (1.0, 0.0)]
+    result = lic_5(parameters, points)
+    assert(not result)
