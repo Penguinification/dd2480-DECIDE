@@ -314,3 +314,67 @@ def test_lic_4_false_not_consecutive():
     points = [(0.0, 0.0), (-1.0, -1.0), (0.0, 0.0), (-1.0, -1.0)]
     result = lic_4(parameters, points)
     assert not result
+
+def test_lic_6_true():
+    """
+    Tests that lic_6 returns true when there is one set of three consecutive points with one point that lies
+    at a distance greater than [dist] from the line joining the other two
+    """
+    parameters = {
+        "n_pts": 3,
+        "dist": 1
+    }
+    points = [(-2.0, -2.0), (-1.0, 0.0), (0.0, 5.0), (1.0, 0.0)]
+    result = lic_6(parameters, points)
+    assert result
+
+def test_lic_6_true_coinciding_point():
+    """
+    Tests that lic_6 returns true when the first and last points coincide and each other consecutive point
+    lies at a distance greater than [dist] to the coinciding point
+    """
+    parameters = {
+        "n_pts": 4,
+        "dist": 1
+    }
+    points = [(0.0, 0.0), (-2.0, 1.0), (1.0, 5.0), (0.0, 0.0)]
+    result = lic_6(parameters, points)
+    assert result
+
+def test_lic_6_false():
+    """
+    Tests that lic_6 returns false when there is no point that lies at a distance greater than [dist]
+    to the line joining the first and last points
+    """
+    parameters = {
+        "n_pts": 4,
+        "dist": 5
+    }
+    points = [(-2.0, 0.0), (-1.0, 1.0), (0.0, 3.0), (2.0, 0.0)]
+    result = lic_6(parameters, points)
+    assert not result
+
+def test_lic_6_false_too_few_points():
+    """
+    Tests that lic_6 returns false when there are less than three points
+    """
+    parameters = {
+        "n_pts": 4,
+        "dist": 5
+    }
+    points = [(-2.0, 0.0), (-1.0, 1.0)]
+    result = lic_6(parameters, points)
+    assert not result
+
+def test_lic_6_false_coinciding_point():
+    """
+    Tests that lic_6 returns false when the first and last points coincide and not all points lie at a 
+    distance greater than [dist] to the coinciding point
+    """
+    parameters = {
+        "n_pts": 4,
+        "dist": 5
+    }
+    points = [(0.0, 0.0), (-1.0, 1.0), (15.0, 15.0), (0.0, 0.0)]
+    result = lic_6(parameters, points)
+    assert not result

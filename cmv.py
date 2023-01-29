@@ -160,8 +160,39 @@ def lic_5(parameters, points):
     pass
 
 def lic_6(parameters, points):
-    # TODO: Implement
-    pass
+    """
+    Checks whether or not there exists at least one set of [n_pts] consecutive data points such that at least one point 
+    lies at a distance greater than [dist] to the line joining the first and the last point.
+    If the first and last point are the same, then it will check whether or not *all* other points lie at a distance
+    greater than [dist] to the first/last point. 
+    """
+    n_pts = parameters["n_pts"]
+    dist_p = parameters["dist"]
+
+    if len(points) < n_pts or len(points) < 3:
+        return False
+
+    for i in range(len(points)-n_pts+1):
+        consecutive_points = []
+        for j in range(n_pts):
+            consecutive_points.append(points[i+j])
+        p1 = consecutive_points[0]
+        p2 = consecutive_points[-1]
+        line = dist(p1, p2)
+        all_points_greater_than_dist = True # used in case p1 and p2 are the same
+        for p in consecutive_points[1:-1]:
+            if line == 0:
+                dist_to_point = dist(p, p1)
+                if dist_to_point < dist_p:
+                    all_points_greater_than_dist = False
+                    break
+            else:
+                dist_to_line = abs((p2[0]-p1[0])*(p1[1]-p[1]) - (p1[0]-p[0])*(p2[1]-p1[1]))/line
+                if dist_to_line > dist_p:
+                    return True
+        if line == 0 and all_points_greater_than_dist:
+            return True
+    return False
 
 def lic_7(parameters, points):
     # TODO: Implement
