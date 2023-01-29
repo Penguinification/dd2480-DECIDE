@@ -59,6 +59,54 @@ def test_lic_0_false():
     result = lic_0(parameters, points)
     assert(not result)
 
+def test_lic_1_true():
+    """
+    Test that lic_1 returns true if any three consecutive points cannot all be contained in a circle with
+    the specified radius
+    """
+    parameters = {
+        "radius1": 1.0
+    }
+    points = [(2.0, 0.0), (0.0, 2.0), (3.0, 0.0)]
+    result = lic_1(parameters, points)
+    assert(result)
+
+def test_lic_1_false():
+    """
+    Test that lic_1 returns false if all sequences of three consecutive points can be contained in a circle
+    with the specified radius
+    """
+    parameters = {
+        "radius1": 1.0
+    }
+    points = [(1.0, 2.0), (2.0, 1.0), (1.5, 1.0)]
+    result = lic_1(parameters, points)
+    assert(not result)
+
+def test_lic_degenerate_triangle_true():
+    """
+    Test that lic_1 returns true if three consecutive points that form a degenerate triangle
+    (i.e. a+b=c for a≤b≤c) cannot all be contained in a circle with the specified radius
+    """
+    parameters = {
+        "radius1": 1.0
+    }
+    points = [(2.0, 0.0), (0.0, 2.0), (1.0, 0.0)]
+    result = lic_1(parameters, points)
+    assert(result)
+
+def test_lic_degenerate_triangle_false():
+    """
+    Test that lic_1 returns false if three consecutive points that form a degenerate triangle and
+    all sequences of three consecutive points can be contained in a circle with the specified radius
+    """
+    parameters = {
+        "radius1": 1.0
+    }
+    points = [(1.0, 0.0), (0.0, 0.0), (-1.0, 0.0)]
+    result = lic_1(parameters, points)
+    assert(not result)
+
 def test_lic_2_true():
     """
     Test that lic_2 returns true when angle < (PI-EPSILON) (or equivalently outer angle > (PI+EPSILON))
