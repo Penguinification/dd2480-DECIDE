@@ -38,5 +38,5 @@ def test_pum_notused():
     lcm = [["NOTUSED" for _ in range(15)] for _ in range(15)]
     cmv = [True, False, True, False, True, False, True, False, True, False, True, False, True, False, True]
     result = pum(lcm, cmv)
-    expected = [[False] * 15] * 15
+    expected = [[True] * 15] * 15
     assert(result == expected)

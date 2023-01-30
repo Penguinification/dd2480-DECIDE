@@ -9,5 +9,5 @@ def pum(lcm, cmv):
                 case "ORR":
                     pum[i][j] = cmv[i] or cmv[j]
                 case "NOTUSED":
-                    pum[i][j] = False
+                    pum[i][j] = True
     return pum
