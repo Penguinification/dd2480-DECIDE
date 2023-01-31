@@ -229,9 +229,26 @@ def lic_11(parameters, points):
     pass
 
 def lic_12(parameters, points):
-    # TODO: Implement
-    pass
+    if len(points) < 3 or parameters["length2"] <= 0.0:
+        return False
 
+    k_pts = parameters["k_pts"]
+    length1 = parameters["length1"]
+    length2 = parameters["length2"]
+
+    long_points = False
+    short_points = False
+    for i in range(len(points) - k_pts - 1):
+        for j in range(i + k_pts + 1, len(points)):
+            distance = sqrt((points[i][0] - points[j][0])**2 + (points[i][1] - points[j][1])**2)
+            if distance > length1:
+                long_points = True
+            if distance < length2:
+                short_points = True
+            if long_points and short_points:
+                return True
+    return False
+    
 def lic_13(parameters, points):
     # TODO: Implement
     pass

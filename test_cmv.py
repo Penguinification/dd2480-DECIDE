@@ -446,3 +446,9 @@ def test_lic_7_too_few_points():
     points = [(0.0, 0.0), (-1.0, -1.0)]
     result = lic_7(parameters, points)
     assert not result
+
+def test_lic_12():
+    points = [(0,0), (1,1), (2,2), (3,3), (4,4), (5,5), (6,6), (7,7), (8,8), (9,9), (10,10)]
+    parameters = {"k_pts": 5, "length1": 0.5, "length2": 10.0}
+    result = lic_12(parameters, points)
+    assert result == True, f"Expected True but got {result}"
