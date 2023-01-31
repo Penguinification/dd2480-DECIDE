@@ -452,3 +452,50 @@ def test_lic_12():
     parameters = {"k_pts": 5, "length1": 0.5, "length2": 10.0}
     result = lic_12(parameters, points)
     assert result == True, f"Expected True but got {result}"
+
+def test_lic_13_true():
+    """
+    Tests that lic_13 returns true if both the following conditions are true:
+    - any three points with A_PTS and B_PTS consecutive intervening points cannot all be contained in a circle with radius RADIUS1
+    - any three points with A_PTS and B_PTS consecutive intervening points cannot all be contained in a circle with radius RADIUS2
+    """
+    parameters = {
+        "radius1": 0.5,
+        "radius2": 1.0,
+        "a_pts": 1,
+        "b_pts": 1
+    }
+    points = [(2.0, 0.0), (0.0, 0.0), (0.0, 2.0), (0.0, 0.0), (3.0, 0.0)]
+    result = lic_13(parameters, points)
+    assert(result)
+
+def test_lic_13_false_1():
+    """
+    Tests that lic_13 returns false if any three points with A_PTS and B_PTS intervening points can all be contained
+    in a circle with the radius RADIUS1
+    """
+    parameters = {
+        "radius1": 10.0,
+        "radius2": 1.0,
+        "a_pts": 2,
+        "b_pts": 2
+    }
+    points = [(2.0, 0.0), (0.0, 0.0), (0.0, 0.0), (0.0, 2.0), (0.0, 0.0), (0.0, 0.0), (3.0, 0.0)]
+    result = lic_13(parameters, points)
+    assert(not result)
+
+def test_lic_13_false_2():
+    """
+    Tests that lic_13 returns false if both:
+    - any three points with A_PTS and B_PTS consecutive intervening points can all be contained in a circle with radius RADIUS1
+    - any three points with A_PTS and B_PTS consecutive intervening points can all be contained in a circle with radius RADIUS2
+    """
+    parameters = {
+        "radius1": 10.0,
+        "radius2": 10.0,
+        "a_pts": 3,
+        "b_pts": 1
+    }
+    points = [(2.0, 0.0), (0.0, 0.0), (0.0, 0.0), (25.0, 25.0), (0.0, 2.0), (0.0, 0.0), (3.0, 0.0)]
+    result = lic_13(parameters, points)
+    assert(not result)
