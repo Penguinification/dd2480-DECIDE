@@ -1,4 +1,4 @@
-from math import sqrt, acos, pi, dist
+from math import sqrt, acos, pi, dist,sin
 
 def cmv(parameters, points):
     cmv = [False] * 15
@@ -212,9 +212,37 @@ def lic_7(parameters, points):
             return True
     return False
 
+
 def lic_8(parameters, points):
-    # TODO: Implement
-    pass
+    """
+    Checks if there exists at least one set of three datapoints separated by exaclty A_PTS and B_PTS *consecutive* intervening points,
+    respectively, that cannot be contained within or on a circle of RADIUS1. The condition is not met NUMPOINTS < 5.
+    1 <= A_PTS, 1 <= B_PTS
+    A_PTS + B_PTS <= NUMPOINTS - 3
+    """
+    a_pts = parameters["a_pts"]
+    b_pts = parameters["b_pts"]
+    radius1 = parameters["radius1"]
+
+    if(len(points) < 5 or a_pts < 1 or b_pts < 1):
+        return False
+    elif((a_pts + b_pts) > (len(points)-3)):
+        return False
+    radius1 = parameters["radius1"]
+
+    for i in range(len(points)):
+        if(a_pts + b_pts + i + 2 > len(points)-1):
+            break
+        x1 = points[i][0] 
+        y1 = points[i][1]
+        x2 = points[i + a_pts + 1][0]
+        y2 = points[i + a_pts + 1][1]
+        x3 = points[i + a_pts + b_pts + 2][0]
+        y3 = points[i + a_pts + b_pts + 2][1]
+
+        if smallest_Radius(x1, y1, x2, y2, x3, y3,radius1):
+            return True
+    return False
 
 def lic_9(parameters, points):
     # TODO: Implement
@@ -256,3 +284,24 @@ def lic_13(parameters, points):
 def lic_14(parameters, points):
     # TODO: Implement
     pass
+
+def smallest_Radius(x1,y1,x2,y2,x3,y3,radius):
+    
+    d1 = abs(sqrt((x1-x2)**2 + (y1-y2)**2))
+    d2 = abs(sqrt((x2-x3)**2 + (y2-y3)**2))
+    d3 = abs(sqrt((x1-x3)**2 + (y1-y3)**2))
+
+    #check if one or more point is the same
+    if((d1 == 0) or (d2 == 0) or (d3 == 0)):
+        return max(d1,d2,d3)/2 <= radius
+    #check if big angle
+    a = acos((d2*d2 + d3*d3 - d1*d1)/(2*d2*d3))
+    b = acos((d1*d1 + d3*d3 - d2*d2)/(2*d1*d3))
+    c = acos((d2*d2 + d1*d1 - d3*d3)/(2*d2*d1))
+
+    if(a > pi/2 or b > pi/2 or c > pi/2):
+        return max(d1,d2,d3)/2 <= radius
+    else:
+    #https://mathalino.com/reviewer/derivation-of-formulas/derivation-of-formula-for-radius-of-circumcircle
+
+        return d1/(2*sin(a)) <= radius

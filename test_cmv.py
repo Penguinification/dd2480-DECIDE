@@ -49,7 +49,7 @@ def test_lic_0_true():
     assert(result)
 
 def test_lic_0_false():
-    """""
+    """"
     Test that lic_0 returns false when no consecutive points have a distance larger than or equal to length1
     """""
     parameters = {
@@ -88,6 +88,7 @@ def test_lic_degenerate_triangle_true():
     Test that lic_1 returns true if three consecutive points that form a degenerate triangle
     (i.e. a+b=c for a≤b≤c) cannot all be contained in a circle with the specified radius
     """
+
     parameters = {
         "radius1": 1.0
     }
@@ -445,6 +446,36 @@ def test_lic_7_too_few_points():
     }
     points = [(0.0, 0.0), (-1.0, -1.0)]
     result = lic_7(parameters, points)
+    assert not result
+
+def test_lic_8_false():
+
+    parameters = {
+        "a_pts":5,
+        "b_pts":5,
+        "radius1":10
+    }
+    points = [(0,0),(1,1),(2,2),(3,3),(4,4),(5,5),(100,100)]
+    result = lic_8(parameters, points)
+    assert not result
+
+def test_lic_8_true():
+    parameters = {
+        "a_pts":1,
+        "b_pts":1,
+        "radius1":10
+    }
+    points = [(0,0),(-1,-1),(-1,-1),(1,0),(1,2)]
+    result = lic_8(parameters, points)
+    assert result
+def test_lic_8_points():
+    parameters = {
+        "a_pts":5,
+        "b_pts":5,
+        "radius1":10
+    }
+    points = [(0,0),(1,1),(100,100)]
+    result = lic_8(parameters, points)
     assert not result
 
 def test_lic_12():
