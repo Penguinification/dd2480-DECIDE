@@ -59,6 +59,54 @@ def test_lic_0_false():
     result = lic_0(parameters, points)
     assert(not result)
 
+def test_lic_1_true():
+    """
+    Test that lic_1 returns true if any three consecutive points cannot all be contained in a circle with
+    the specified radius
+    """
+    parameters = {
+        "radius1": 1.0
+    }
+    points = [(2.0, 0.0), (0.0, 2.0), (3.0, 0.0)]
+    result = lic_1(parameters, points)
+    assert(result)
+
+def test_lic_1_false():
+    """
+    Test that lic_1 returns false if all sequences of three consecutive points can be contained in a circle
+    with the specified radius
+    """
+    parameters = {
+        "radius1": 1.0
+    }
+    points = [(1.0, 2.0), (2.0, 1.0), (1.5, 1.0)]
+    result = lic_1(parameters, points)
+    assert(not result)
+
+def test_lic_degenerate_triangle_true():
+    """
+    Test that lic_1 returns true if three consecutive points that form a degenerate triangle
+    (i.e. a+b=c for a≤b≤c) cannot all be contained in a circle with the specified radius
+    """
+    parameters = {
+        "radius1": 1.0
+    }
+    points = [(2.0, 0.0), (0.0, 2.0), (1.0, 0.0)]
+    result = lic_1(parameters, points)
+    assert(result)
+
+def test_lic_degenerate_triangle_false():
+    """
+    Test that lic_1 returns false if three consecutive points that form a degenerate triangle and
+    all sequences of three consecutive points can be contained in a circle with the specified radius
+    """
+    parameters = {
+        "radius1": 1.0
+    }
+    points = [(1.0, 0.0), (0.0, 0.0), (-1.0, 0.0)]
+    result = lic_1(parameters, points)
+    assert(not result)
+
 def test_lic_2_true():
     """
     Test that lic_2 returns true when angle < (PI-EPSILON) (or equivalently outer angle > (PI+EPSILON))
@@ -267,8 +315,142 @@ def test_lic_4_false_not_consecutive():
     result = lic_4(parameters, points)
     assert not result
 
+<<<<<<< issue-18
 def test_lic_12():
     points = [(0,0), (1,1), (2,2), (3,3), (4,4), (5,5), (6,6), (7,7), (8,8), (9,9), (10,10)]
     parameters = {"k_pts": 5, "length1": 0.5, "length2": 10.0}
     result = lic_12(parameters, points)
     assert result == True, f"Expected True but got {result}"
+=======
+def test_lic_5_true():
+    """
+    Tests that lic_5 returns true when two consecutive points (x1, y1) (x2, y2) exist such that x2 - x1 < 0
+    """
+    parameters = {}
+    points = [(1.0, 0.0), (0.0, 0.0)]
+    result = lic_5(parameters, points)
+    assert(result)
+
+def test_lic_5_false():
+    """
+    Tests that lic_5 returns false when no consecutive points (x1, y1) (x2, y2) exist such that x2 - x1 < 0
+    """
+    parameters = {}
+    points = [(0.0, 0.0), (1.0, 0.0)]
+    result = lic_5(parameters, points)
+    assert(not result)
+
+def test_lic_6_true():
+    """
+    Tests that lic_6 returns true when there is one set of three consecutive points with one point that lies
+    at a distance greater than [dist] from the line joining the other two
+    """
+    parameters = {
+        "n_pts": 3,
+        "dist": 1
+    }
+    points = [(-2.0, -2.0), (-1.0, 0.0), (0.0, 5.0), (1.0, 0.0)]
+    result = lic_6(parameters, points)
+    assert result
+
+def test_lic_6_true_coinciding_point():
+    """
+    Tests that lic_6 returns true when the first and last points coincide and each other consecutive point
+    lies at a distance greater than [dist] to the coinciding point
+    """
+    parameters = {
+        "n_pts": 4,
+        "dist": 1
+    }
+    points = [(0.0, 0.0), (-2.0, 1.0), (1.0, 5.0), (0.0, 0.0)]
+    result = lic_6(parameters, points)
+    assert result
+
+def test_lic_6_false():
+    """
+    Tests that lic_6 returns false when there is no point that lies at a distance greater than [dist]
+    to the line joining the first and last points
+    """
+    parameters = {
+        "n_pts": 4,
+        "dist": 5
+    }
+    points = [(-2.0, 0.0), (-1.0, 1.0), (0.0, 3.0), (2.0, 0.0)]
+    result = lic_6(parameters, points)
+    assert not result
+
+def test_lic_6_false_too_few_points():
+    """
+    Tests that lic_6 returns false when there are less than three points
+    """
+    parameters = {
+        "n_pts": 4,
+        "dist": 5
+    }
+    points = [(-2.0, 0.0), (-1.0, 1.0)]
+    result = lic_6(parameters, points)
+    assert not result
+
+def test_lic_6_false_coinciding_point():
+    """
+    Tests that lic_6 returns false when the first and last points coincide and not all points lie at a 
+    distance greater than [dist] to the coinciding point
+    """
+    parameters = {
+        "n_pts": 4,
+        "dist": 5
+    }
+    points = [(0.0, 0.0), (-1.0, 1.0), (15.0, 15.0), (0.0, 0.0)]
+    result = lic_6(parameters, points)
+    assert not result
+
+def test_lic_7_true():
+    """
+    Tests that lic_7 returns true when there are two points separated by [k_pts] consecutive points
+    that lie at a distance greater than [length1] units apart
+    """
+    parameters = {
+        "length1": 1,
+        "k_pts": 1
+    }
+    points = [(0.0, 0.0), (-1.0, -1.0), (2.0, 0.0)]
+    result = lic_7(parameters, points)
+    assert result
+
+def test_lic_7_false():
+    """
+    Tests that lic_7 returns false when there are no two points separated by [k_pts] consecutive points
+    that lie at a distance greater than [length1] units apart
+    """
+    parameters = {
+        "length1": 1,
+        "k_pts": 2
+    }
+    points = [(0.0, 0.0), (-1.0, -1.0), (2.0, 0.0)]
+    result = lic_7(parameters, points)
+    assert not result
+
+def test_lic_7_false_distance_too_small():
+    """
+    Tests that lic_7 returns false when the points lie at a distance smaller than [length1]
+    """
+    parameters = {
+        "length1": 10,
+        "k_pts": 1
+    }
+    points = [(0.0, 0.0), (-1.0, -1.0), (2.0, 0.0)]
+    result = lic_7(parameters, points)
+    assert not result
+
+def test_lic_7_too_few_points():
+    """
+    Tests that lic_7 returns false when there are less than 3 points
+    """
+    parameters = {
+        "length1": 1,
+        "k_pts": 1
+    }
+    points = [(0.0, 0.0), (-1.0, -1.0)]
+    result = lic_7(parameters, points)
+    assert not result
+>>>>>>> issue-3
