@@ -583,6 +583,43 @@ def test_lic_10_input():
     points = [(0.0,0.0)]
     result = lic_10(parameters,points)
     assert not result
+
+def test_lic_11_true():
+    """
+    Checks that lic11 returns true when there exists at least one set of two data points X[i][j] X[j][i] separated by exactly G_PTS
+    consecutive intervening points such that X[j]-X[i]<0 where i<j
+    """
+    parameters = {
+        "g_pts":3
+    }
+    points = [(0.0,0.0), (1.0,1.0), (2.0,2.0), (3.0,3.0), (4.0,4.0)]
+    result = lic_11(parameters,points)
+    assert result
+
+def test_lic_11_false():
+    """
+    Checks that lic11 returns true when there does not exists at least one set of two data points X[i][j] X[j][i] separated by exactly G_PTS
+    consecutive intervening points such that X[j]-X[i]<0 where i<j
+    """
+    parameters = {
+        "g_pts":3
+    }
+    points = [(0.0,0.0), (0.0,0.0), (0.0,0.0), (0.0,0.0), (0.0,0.0)]
+    result = lic_11(parameters,points)
+    assert not result
+
+def test_lic_11_input():
+    """
+    Checks that lic11 returns false when input is invalid
+    """
+    parameters = {
+        "g_pts":8
+    }
+    points = [(0.0,0.0)]
+    result = lic_11(parameters,points)
+    assert not result
+
+
 def test_lic_12():
     points = [(0,0), (1,1), (2,2), (3,3), (4,4), (5,5), (6,6), (7,7), (8,8), (9,9), (10,10)]
     parameters = {"k_pts": 5, "length1": 0.5, "length2": 10.0}

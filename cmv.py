@@ -309,8 +309,21 @@ def lic_10(parameters, points):
     return False
 
 def lic_11(parameters, points):
-    # TODO: Implement
-    pass
+    """
+    There exists at least one set of two data points X[i][j] X[j][i] separated by exactly G_PTS
+    consecutive intervening points such that X[j]-X[i]<0 where i<j
+     The condition is not met when NUMPOINTS <3 1<= g_pts <= NUMPOINTS -2
+    """
+    g_pts = parameters["g_pts"]
+
+    if((len(points) < 3) or (1<= g_pts and g_pts <= len(points)-2)):
+
+        for i in range(len(points)- g_pts -1):
+            if(points[i + g_pts + 1][0]-points[i][0]):
+                return True
+            return False
+    return False
+
 
 def lic_12(parameters, points):
     if len(points) < 3 or parameters["length2"] <= 0.0:
