@@ -447,6 +447,46 @@ def test_lic_7_too_few_points():
     result = lic_7(parameters, points)
     assert not result
 
+def test_lic_8_false():
+    """
+    checks lic 8 returns false if there does not exists at least one set of three datapoints separated by exaclty A_PTS and B_PTS *consecutive* intervening points,
+    respectively, that cannot be contained within or on a circle of RADIUS1.
+    """
+    parameters = {
+        "a_pts":5,
+        "b_pts":5,
+        "radius1":10
+    }
+    points = [(0,0),(1,1),(2,2),(3,3),(4,4),(5,5),(100,100)]
+    result = lic_8(parameters, points)
+    assert not result
+
+def test_lic_8_true():
+    """
+    checks that lic_8 returns true if there exists at least one set of three datapoints separated by exaclty A_PTS and B_PTS *consecutive* intervening points,
+    respectively, that cannot be contained within or on a circle of RADIUS1.
+    """
+    parameters = {
+        "a_pts":1,
+        "b_pts":1,
+        "radius1":10
+    }
+    points = [(0,0),(-1,-1),(-1,-1),(1,0),(1,2)]
+    result = lic_8(parameters, points)
+    assert result
+def test_lic_8_points():
+    """
+    Checks that lic-8 can handle an incorrect number of points
+    """
+    parameters = {
+        "a_pts":5,
+        "b_pts":5,
+        "radius1":10
+    }
+    points = [(0,0),(1,1),(100,100)]
+    result = lic_8(parameters, points)
+    assert not result
+
 def test_lic_12():
     points = [(0,0), (1,1), (2,2), (3,3), (4,4), (5,5), (6,6), (7,7), (8,8), (9,9), (10,10)]
     parameters = {"k_pts": 5, "length1": 0.5, "length2": 10.0}
