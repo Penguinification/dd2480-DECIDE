@@ -470,13 +470,44 @@ def test_lic_8_true():
     assert result
 def test_lic_8_points():
     parameters = {
-        "a_pts":5,
-        "b_pts":5,
+        "a_pts":1,
+        "b_pts":1,
         "radius1":10
     }
     points = [(0,0),(1,1),(100,100)]
     result = lic_8(parameters, points)
     assert not result
+    
+def test_lic_9_true():
+    parameters = {
+        "c_pts":1,
+        "d_pts":1,
+        "epsilon":pi/2
+    }
+    points = [(-1.0,0.0),(0.0,0.0),(1.0,0.0),(1.0,0.0),(0.0,1.0)]
+    result = lic_9(parameters,points)
+    assert result
+
+def test_lic_9_false():
+    parameters = {
+        "c_pts":1,
+        "d_pts":1,
+        "epsilon":pi/2
+    }
+    points = [(0.0,0.0),(0.0,0.0),(0.0,0.0),(0.0,0.0),(0.0,0.0),(0.0,0.0)]
+    result = lic_9(parameters,points)
+    assert not result
+
+def test_lic_9_input():
+    parameters = {
+        "c_pts":1,
+        "d_pts":1,
+        "epsilon":pi/2
+    }
+    points = [(0.0,0.0)]
+    result = lic_9(parameters,points)
+    assert not result
+
 
 def test_lic_12():
     points = [(0,0), (1,1), (2,2), (3,3), (4,4), (5,5), (6,6), (7,7), (8,8), (9,9), (10,10)]
