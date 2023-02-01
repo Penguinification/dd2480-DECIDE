@@ -542,6 +542,27 @@ def test_lic_10_input():
     result = lic_10(parameters,points)
     assert not result
 
+def test_lic_11_true():
+    parameters = {
+        "g_pts":3
+    }
+    points = [(0.0,0.0), (1.0,1.0), (2.0,2.0), (3.0,3.0), (4.0,4.0)]
+    result = lic_11(parameters,points)
+    assert result
+def test_lic_11_false():
+    parameters = {
+        "g_pts":3
+    }
+    points = [(0.0,0.0), (0.0,0.0), (0.0,0.0), (0.0,0.0), (0.0,0.0)]
+    result = lic_11(parameters,points)
+    assert not result
+def test_lic_11_input():
+    parameters = {
+        "g_pts":8
+    }
+    points = [(0.0,0.0)]
+    result = lic_11(parameters,points)
+    assert not result
 
 
 def test_lic_12():
