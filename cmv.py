@@ -212,7 +212,6 @@ def lic_7(parameters, points):
             return True
     return False
 
-
 def lic_8(parameters, points):
     """
     Checks if there exists at least one set of three datapoints separated by exaclty A_PTS and B_PTS *consecutive* intervening points,
