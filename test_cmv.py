@@ -487,6 +487,57 @@ def test_lic_8_points():
     result = lic_8(parameters, points)
     assert not result
 
+def test_lic_9_true():
+    """
+    Checks that Lic-9 returns true when there exists at least one set of three data points separated by exactly C_PTS and D_PTS *consecutive* intervening points, respectively,
+    that form an angle such that:
+
+    angle < pi-epsilon
+
+    angle > pi + epsilon
+
+    """
+    parameters = {
+        "c_pts":1,
+        "d_pts":1,
+        "epsilon":pi/2
+    }
+    points = [(-1.0,0.0),(0.0,0.0),(1.0,0.0),(1.0,0.0),(0.0,1.0)]
+    result = lic_9(parameters,points)
+    assert result
+
+def test_lic_9_false():
+    """
+    Checks that Lic-9 returns false when there does not exists at least one set of three data points separated by exactly C_PTS and D_PTS *consecutive* intervening points, respectively,
+    that form an angle such that:
+
+    angle < pi-epsilon
+
+    angle > pi + epsilon
+
+    """
+    parameters = {
+        "c_pts":1,
+        "d_pts":1,
+        "epsilon":pi/2
+    }
+    points = [(0.0,0.0),(0.0,0.0),(0.0,0.0),(0.0,0.0),(0.0,0.0),(0.0,0.0)]
+    result = lic_9(parameters,points)
+    assert not result
+
+def test_lic_9_input():
+    """
+    Checks that lic-9 returns false for invalid input
+    """
+    parameters = {
+        "c_pts":1,
+        "d_pts":1,
+        "epsilon":pi/2
+    }
+    points = [(0.0,0.0)]
+    result = lic_9(parameters,points)
+    assert not result
+
 def test_lic_12():
     points = [(0,0), (1,1), (2,2), (3,3), (4,4), (5,5), (6,6), (7,7), (8,8), (9,9), (10,10)]
     parameters = {"k_pts": 5, "length1": 0.5, "length2": 10.0}
