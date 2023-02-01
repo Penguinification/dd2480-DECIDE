@@ -244,8 +244,44 @@ def lic_8(parameters, points):
     return False
 
 def lic_9(parameters, points):
-    # TODO: Implement
-    pass
+    """
+    There exists at least one set of three data points separated by exactly C_PTS and D_PTS *consecutive* intervening points, respectively,
+    that form an angle such that:
+
+    angle < pi-epsilon
+
+    angle > pi + epsilon
+
+    The second point of the set of three points is always the vertex of the angle. If either the first or the last point or both coincide with
+    the vertex the angle is undefined and the LIC is not satisfied by those three points.
+
+     When NUMPOINTS < 5 the condition is not met
+     1<= C_PTS,1 <= D_PTS
+
+     C_PTS + D_PTS <= NUMPOINTS - 3
+    """
+    c_pts = parameters["c_pts"]
+    d_pts = parameters["d_pts"]
+    epsilon = parameters["epsilon"]
+
+    if(len(points) < 5 or c_pts < 1 or d_pts < 1 or c_pts + d_pts <= len(points)-3):
+
+        for i in range(len(points)-2-c_pts-d_pts):
+
+            a = (points[i][0], points[i][1])
+            v = (points[i + c_pts + 1][0], points[i + c_pts + 1][1])
+            b = (points[i + c_pts + d_pts + 2][0], points[i + c_pts + d_pts + 2][1])
+
+            if a != v and b != v:
+                va = sqrt((a[0] - v[0])**2 + (a[1] - v[1])**2)
+                vb = sqrt((b[0] - v[0])**2 + (b[1] - v[1])**2)
+                vc = sqrt((a[0] - b[0])**2 + (a[1] - b[1])**2)
+
+                angle = acos((va**2 + vb**2 - vc**2 )/(2*va*vb))
+
+                if (angle < pi - epsilon)  or (angle > pi + epsilon):
+                    return True
+    return False
 
 def lic_10(parameters, points):
     # TODO: Implement
