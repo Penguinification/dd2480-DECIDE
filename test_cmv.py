@@ -538,6 +538,51 @@ def test_lic_9_input():
     result = lic_9(parameters,points)
     assert not result
 
+def test_lic_10_true():
+    """
+    Checks that lic10 returns true when there exists at least one set of three datapoints separated by exactly E_PTS and F_PTS consecutive intervening points, respectively,
+    that are the vertices of a triangle with area greater than AREA1.
+    """
+    parameters = {
+        "e_pts":1,
+        "f_pts":1,
+        "area1":10.0
+    }
+    points = [(0, 0),
+              (2, 2),
+              (8, 0),
+              (2, 9),
+              (0, 6),]
+   # points = [(0,0),(2,0),(3,0),(8,0),(1,0),(0,6)]
+    result = lic_10(parameters,points)
+    assert result
+
+def test_lic_10_false():
+    """
+    Checks that lic10 returns false when there does not exists at least one set of three datapoints separated by exactly E_PTS and F_PTS consecutive intervening points, respectively,
+    that are the vertices of a triangle with area greater than AREA1.
+    """
+    parameters = {
+        "e_pts":2,
+        "f_pts":2,
+        "area1":10.0
+    }
+    points = [(0,0),(0,0),(0,0),(0,0),(0,0),(0,0),(0,0),(0,0),(1,1)]
+    result = lic_10(parameters,points)
+    assert not result
+    
+def test_lic_10_input():
+    """
+    Checks that lic10 returns false when input is invalid
+    """
+    parameters = {
+        "e_pts":1,
+        "f_pts":1,
+        "area1":10.0
+    }
+    points = [(0.0,0.0)]
+    result = lic_10(parameters,points)
+    assert not result
 def test_lic_12():
     points = [(0,0), (1,1), (2,2), (3,3), (4,4), (5,5), (6,6), (7,7), (8,8), (9,9), (10,10)]
     parameters = {"k_pts": 5, "length1": 0.5, "length2": 10.0}
