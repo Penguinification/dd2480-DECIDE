@@ -2,6 +2,9 @@
 
 A function used by a hypothetical anti-ballistic missile defense system
 
+## Description
+The purpose of the program is to take a decision on whether an interceptor missile should be allowed to be launched depending on whether radar information fulfills certain conditions, so called *Launch Interceptor Conditions* (LIC’s). The exact LIC's that should be taken into account is configured by providing a Logical Connector Matrix (LCM) and a Preliminary Unlocking Vector (PUV). Full details on how this works can be read in the [specification](https://canvas.kth.se/courses/37918/files/6157550/download).
+
 ## How to use
 To run the program, first ensure that you have Python 3.10 or later installed. Then, run the command:
 ```console
