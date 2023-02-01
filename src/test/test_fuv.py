@@ -1,4 +1,4 @@
-from fuv import *
+from src.fuv import *
 
 def test_fuv():
     """

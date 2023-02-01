@@ -1,4 +1,4 @@
-from pum import *
+from src.pum import *
 
 def test_pum_andd():
     """
