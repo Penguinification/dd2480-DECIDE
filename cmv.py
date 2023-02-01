@@ -286,8 +286,29 @@ def lic_9(parameters, points):
     return False
 
 def lic_10(parameters, points):
-    # TODO: Implement
-    pass
+    """
+    There exists at least one set of three datapoints separated by exactly E_PTS and F_PTS consecutive intervening points, respectively,
+    that are the vertices of a triangle with area greater than AREA1. The condition is not met when:
+    
+    NUMPOINTS < 5
+
+    1 =< E_PTS, 1 =< F_PTS
+    E_PTS + D_PTS <= NUMPOINTS - 3
+    """
+    e_pts = parameters["e_pts"]
+    f_pts = parameters["f_pts"]
+    area1 = parameters["area1"]
+
+    print(len(points),e_pts,f_pts,area1)
+    if(len(points) >= 5 and e_pts <= 1 and f_pts <= 1 and (e_pts + f_pts <= len(points)-3)):
+        for i in range(len(points) - 2 - e_pts - f_pts):
+            j = i + e_pts + 1 
+            k = j + f_pts + 1
+            area = triangleA(i,j,k,points)
+            print(area)
+            if area > area1:
+                return True
+    return False
 
 def lic_11(parameters, points):
     # TODO: Implement
@@ -342,3 +363,17 @@ def smallest_Radius(x1,y1,x2,y2,x3,y3,radius):
     #https://mathalino.com/reviewer/derivation-of-formulas/derivation-of-formula-for-radius-of-circumcircle
 
         return d1/(2*sin(a)) <= radius
+    
+def triangleA(x,y,z,points):    
+    x1 = points[x][0]
+    y1 = points[x][1]
+
+    x2 = points[y][0]
+    y2 = points[y][1]
+
+    x3 = points[z][0]
+    y3 = points[z][1]
+
+    A = abs(0.5 * ((x2-x1)*(y3-y1)) - ((x3-x1)*(y2-y1)))    
+
+    return A
